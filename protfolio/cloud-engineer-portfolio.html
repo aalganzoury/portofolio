@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmed El Ganzoury — Cloud Infrastructure Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1120;
+    --bg-alt:#0D1626;
+    --surface:#111D33;
+    --surface-raised:#152341;
+    --grid-line:#1C2C48;
+    --border:#22314F;
+    --text:#E7ECF3;
+    --text-muted:#8A96AC;
+    --text-dim:#59647C;
+    --accent:#4CE8CE;
+    --accent-dim:#2C7A6C;
+    --warn:#F0A857;
+    --radius:3px;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--accent); color:var(--bg);}
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,17,32,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    max-width:1120px; margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono); font-size:14px; color:var(--accent);
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--text-muted);}
+  nav.links{display:flex; gap:28px; font-family:var(--mono); font-size:13px;}
+  nav.links a{
+    color:var(--text-muted); text-decoration:none; position:relative; padding-bottom:3px;
+  }
+  nav.links a:hover{color:var(--text);}
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--accent); transition:width .25s ease;
+  }
+  nav.links a:hover::after{width:100%;}
+  .nav-toggle{display:none;}
+
+  .nav-right{display:flex; align-items:center; gap:36px;}
+  .brand-mark{
+    display:flex; align-items:center; gap:9px;
+    text-decoration:none;
+    font-family:var(--mono); font-size:12.5px; color:var(--text-muted);
+    letter-spacing:0.02em;
+    transition:color .18s ease;
+  }
+  .brand-mark:hover{color:var(--text);}
+  .wordmark{
+    font-family:var(--display);
+    font-size:17px;
+    letter-spacing:-0.01em;
+    color:var(--text-muted);
+    font-weight:500;
+    position:relative;
+    padding-left:2px;
+    transition:color .2s ease;
+  }
+  .wordmark em{
+    font-style:normal;
+    font-weight:700;
+    color:var(--text);
+    transition:color .2s ease;
+  }
+  .wordmark::after{
+    content:'';
+    position:absolute;
+    left:2px; right:0; bottom:-6px; height:2px;
+    background:var(--accent);
+    transform:scaleX(0.3);
+    transform-origin:left;
+    transition:transform .25s ease;
+  }
+  .brand-mark:hover .wordmark{color:var(--text);}
+  .brand-mark:hover .wordmark em{color:var(--accent);}
+  .brand-mark:hover .wordmark::after{transform:scaleX(1);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 0 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .status-chip{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12px; color:var(--text-muted);
+    border:1px solid var(--border); border-radius:20px;
+    padding:6px 14px; margin-bottom:28px;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 0 rgba(76,232,206,0.6);
+    animation:pulse-dot 2.4s infinite;
+  }
+  @keyframes pulse-dot{
+    0%{box-shadow:0 0 0 0 rgba(76,232,206,0.55);}
+    70%{box-shadow:0 0 0 8px rgba(76,232,206,0);}
+    100%{box-shadow:0 0 0 0 rgba(76,232,206,0);}
+  }
+  .hero h1{
+    font-family:var(--display);
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.08;
+    margin-bottom:18px;
+  }
+  .hero h1 .accent{color:var(--accent);}
+  .hero p.role{
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--text-muted);
+    margin-bottom:20px;
+  }
+  .hero p.tagline{
+    font-size:17px;
+    color:var(--text-muted);
+    max-width:46ch;
+    margin-bottom:36px;
+  }
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .expertise-row{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-bottom:28px;
+  }
+  .expertise-tag{
+    font-family:var(--mono); font-size:11px;
+    color:var(--accent); background:rgba(76,232,206,0.08);
+    border:1px solid rgba(76,232,206,0.25);
+    padding:5px 12px; border-radius:3px;
+    letter-spacing:0.02em;
+  }
+  .btn{
+    font-family:var(--mono); font-size:13px;
+    padding:12px 22px; border-radius:var(--radius);
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .btn-primary{
+    background:var(--accent); color:#06231D; font-weight:600;
+  }
+  .btn-primary:hover{transform:translateY(-2px); background:#63EEDA;}
+  .btn-ghost{
+    border:1px solid var(--border); color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-2px);}
+
+  /* topology diagram */
+  .topo{width:100%; height:auto; overflow:visible;}
+  .topo .node-box{
+    fill:var(--surface); stroke:var(--border); stroke-width:1;
+  }
+  .topo .node-label{
+    font-family:var(--mono); font-size:9.5px; fill:var(--text-muted);
+    text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .topo .node-title{
+    font-family:var(--mono); font-size:11px; fill:var(--text); font-weight:500;
+  }
+  .topo .edge{
+    stroke:var(--grid-line); stroke-width:1.4; fill:none;
+  }
+  .topo .pulse{
+    stroke:var(--accent); stroke-width:2; fill:none;
+    stroke-dasharray:6 220;
+    animation:travel 5s linear infinite;
+    opacity:0.9;
+  }
+  .topo .pulse.d2{animation-delay:1.1s; stroke:var(--warn);}
+  .topo .pulse.d3{animation-delay:2.3s;}
+  @keyframes travel{
+    0%{stroke-dashoffset:0;}
+    100%{stroke-dashoffset:-500;}
+  }
+  .topo .glyph{stroke:var(--accent); stroke-width:1.3; fill:none;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:88px 0;}
+  .section-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:44px;
+  }
+  .section-head .idx{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+  }
+  .section-head h2{
+    font-family:var(--display); font-size:1.7rem; font-weight:600;
+  }
+  .section-head .rule{
+    flex:1; height:1px; background:var(--border);
+  }
+
+  .sub-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin:56px 0 44px;
+  }
+  .sub-head .idx{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+  }
+  .sub-head .sub-title{
+    font-family:var(--display); font-size:1.7rem; font-weight:600; color:var(--text);
+  }
+  .sub-head .rule{
+    flex:1; height:1px; background:var(--border);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+  }
+  .about-meta{background:var(--bg-alt); padding:30px 32px; font-family:var(--mono); font-size:12.5px;}
+  .about-meta .row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--border);}
+  .about-meta .row:last-child{border-bottom:none;}
+  .about-meta .row span:first-child{color:var(--text-dim);}
+  .about-meta .row span:last-child{color:var(--text-muted); text-align:right;}
+  .about-body{background:var(--bg-alt); padding:34px 36px;}
+  .about-body p{color:var(--text-muted); font-size:15px; margin-bottom:16px; max-width:62ch;}
+  .about-body p:last-child{margin-bottom:0;}
+  .about-body strong{color:var(--text); font-weight:600;}
+
+  @media (max-width:860px){
+    .about-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- SERVICE CATALOG (skills) ---------- */
+  .catalog{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+  }
+  .catalog .tile{
+    background:var(--bg-alt);
+    padding:28px 26px;
+    transition:background .2s ease;
+  }
+  .catalog .tile:hover{background:var(--surface);}
+  .tile .glyph-wrap{
+    width:34px; height:34px; margin-bottom:18px;
+    color:var(--accent);
+  }
+  .tile h3{
+    font-family:var(--display); font-size:16px; font-weight:600; margin-bottom:8px;
+  }
+  .tile p{
+    font-size:13.5px; color:var(--text-muted); margin-bottom:14px;
+  }
+  .tile .stack{
+    font-family:var(--mono); font-size:11px; color:var(--text-dim);
+    display:flex; flex-wrap:wrap; gap:6px;
+  }
+  .tile .stack span{
+    border:1px solid var(--border); padding:3px 8px; border-radius:2px;
+  }
+
+  /* ---------- DEPLOYMENTS (projects) ---------- */
+  .deployments{display:flex; flex-direction:column; gap:1px; background:var(--border); border:1px solid var(--border);}
+  .deploy{
+    background:var(--bg-alt); padding:30px 32px;
+    display:grid; grid-template-columns:220px 1fr; gap:28px;
+  }
+  .deploy-meta{font-family:var(--mono); font-size:11.5px; color:var(--text-dim);}
+  .deploy-meta .row{display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px dashed var(--border);}
+  .deploy-meta .row:last-child{border-bottom:none;}
+  .deploy-meta .row b{color:var(--text-muted); font-weight:500;}
+  .status-pill{
+    display:inline-block; font-family:var(--mono); font-size:10.5px;
+    padding:2px 8px; border-radius:10px;
+  }
+  .status-live{background:rgba(76,232,206,0.12); color:var(--accent); border:1px solid var(--accent-dim);}
+  .status-archived{background:rgba(138,150,172,0.1); color:var(--text-muted); border:1px solid var(--border);}
+  .deploy-body h3{
+    font-family:var(--display); font-size:19px; font-weight:600; margin-bottom:10px;
+  }
+  .deploy-body p{color:var(--text-muted); font-size:14.5px; margin-bottom:16px; max-width:60ch;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  .tags span{
+    font-family:var(--mono); font-size:11px; color:var(--warn);
+    border:1px solid rgba(240,168,87,0.3); padding:3px 9px; border-radius:2px;
+  }
+  .deploy-link{font-family:var(--mono); font-size:12.5px; color:var(--accent); text-decoration:none;}
+  .deploy-link:hover{text-decoration:underline;}
+
+  /* ---------- CHANGELOG (experience) ---------- */
+  .changelog{position:relative; padding-left:36px;}
+  .changelog::before{
+    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px;
+    background:var(--border);
+  }
+  .entry{position:relative; padding-bottom:44px;}
+  .entry:last-child{padding-bottom:0;}
+  .entry::before{
+    content:''; position:absolute; left:-36px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--bg); border:2px solid var(--accent);
+  }
+  .entry .ver{
+    font-family:var(--mono); font-size:12px; color:var(--accent); margin-bottom:6px; display:block;
+  }
+  .entry .when{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim); float:right;
+  }
+  .entry h3{font-family:var(--display); font-size:17px; font-weight:600; margin-bottom:4px;}
+  .entry .org{color:var(--text-muted); font-size:13.5px; margin-bottom:12px;}
+  .entry ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .entry ul li{
+    font-size:14px; color:var(--text-muted); padding-left:18px; position:relative;
+  }
+  .entry ul li::before{
+    content:'+'; position:absolute; left:0; color:var(--accent); font-family:var(--mono);
+  }
+
+  /* ---------- EDUCATION & SKILLS ---------- */
+  .panel{background:var(--bg-alt); padding:32px 34px;}
+  .panel-solo{
+    border:1px solid var(--border);
+  }
+  .panel h3{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--text-dim); margin-bottom:22px;
+  }
+  .rec{margin-bottom:24px;}
+  .rec:last-child{margin-bottom:0;}
+  .rec .rec-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
+  .rec .deg{font-family:var(--display); font-size:16px; font-weight:600;}
+  .rec .yr{font-family:var(--mono); font-size:11.5px; color:var(--text-dim); white-space:nowrap;}
+  .rec .org{font-size:13.5px; color:var(--text-muted); margin-top:3px;}
+
+  .skill-groups{display:flex; flex-direction:column; gap:22px;}
+  .skill-group h4{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:10px; font-weight:500;
+  }
+  .skill-tags{display:flex; flex-wrap:wrap; gap:7px;}
+  .skill-tags span{
+    font-family:var(--mono); font-size:11.5px; color:var(--text-muted);
+    border:1px solid var(--border); padding:4px 10px; border-radius:2px;
+  }
+
+  /* ---------- CONNECT (contact) ---------- */
+  .terminal{
+    background:var(--surface); border:1px solid var(--border); border-radius:6px;
+    max-width:640px; overflow:hidden;
+  }
+  .term-bar{
+    background:var(--surface-raised); padding:10px 16px;
+    display:flex; gap:7px; border-bottom:1px solid var(--border);
+  }
+  .term-bar span{width:10px; height:10px; border-radius:50%; background:var(--border);}
+  .term-body{padding:24px 26px; font-family:var(--mono); font-size:14px;}
+  .term-body .line{margin-bottom:12px; color:var(--text-muted);}
+  .term-body .prompt{color:var(--accent);}
+  .term-body a{color:var(--text); text-decoration:none; border-bottom:1px solid var(--border);}
+  .term-body a:hover{border-color:var(--accent); color:var(--accent);}
+  .cursor{
+    display:inline-block; width:7px; height:14px; background:var(--accent);
+    vertical-align:middle; animation:blink 1.1s step-end infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  footer{
+    border-top:1px solid var(--border);
+    padding:32px;
+    text-align:center;
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding:64px 0 48px;}
+    .catalog{grid-template-columns:repeat(2,1fr);}
+    .deploy{grid-template-columns:1fr;}
+    nav.links{display:none;}
+  }
+  @media (max-width:520px){
+    .wrap, .nav-inner{padding-left:20px; padding-right:20px;}
+    .catalog{grid-template-columns:1fr;}
+    .entry .when{float:none; display:block; margin-top:4px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .dot, .cursor, .topo .pulse{animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">a.alganzoury@gmail.com</div>
+    <div class="nav-right">
+      <nav class="links">
+        <a href="#cover">COVER</a>
+        <a href="#about">ABOUT</a>
+        <a href="#skills">SKILLS</a>
+        <a href="#education">EDUCATION</a>
+        <!--
+        <a href="#catalog">services</a>
+        <a href="#deployments">deployments</a>
+        <a href="#changelog">changelog</a>
+        <a href="#connect">connect</a>
+        -->
+      </nav>
+      <a href="#about" class="brand-mark" aria-label="El Ganzoury — home">
+        <span class="wordmark">El<em>Ganzoury</em></span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="cover">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="status-chip"><span class="dot"></span> available for freelance work</div>
+      <h1>Ahmed El Ganzoury</h1>
+      <p class="role">AWS Cloud Engineer <span class="accent">|</span> Freelancer</p>
+      <p class="tagline">Designing Secure, Scalable & Cost-Efficient Cloud Infrastructure</p>
+      <div class="expertise-row">
+        <span class="expertise-tag">AWS</span>
+        <span class="expertise-tag">Cloud Infrastructure</span>
+        <span class="expertise-tag">EC2</span>
+        <span class="expertise-tag">S3</span>
+        <span class="expertise-tag">IAM</span>
+        <span class="expertise-tag">VPC</span>
+        <span class="expertise-tag">Lambda</span>
+        <span class="expertise-tag">CloudFormation</span>
+        <span class="expertise-tag">Cloud Security</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#about">View Profile →</a>
+        <a class="btn btn-ghost" href="ahmed-el-ganzoury-resume.pdf" download>Download CV</a>
+      </div>
+    </div>
+
+    <div>
+      <svg class="topo" viewBox="0 0 500 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cloud infrastructure architecture diagram showing AWS services and security layers.">
+        <defs>
+          <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4CE8CE;stop-opacity:0.3" />
+            <stop offset="100%" style="stop-color:#4CE8CE;stop-opacity:0" />
+          </linearGradient>
+          <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background glow -->
+        <ellipse cx="250" cy="225" rx="180" ry="150" fill="url(#glow)" opacity="0.4"/>
+
+        <!-- Security layer - outer ring -->
+        <path class="edge" d="M250 50 L250 90" stroke-dasharray="4 4"/>
+        <rect class="node-box" x="195" y="20" width="110" height="35" rx="4" filter="url(#glow-filter)"/>
+        <text class="node-title" x="250" y="42" text-anchor="middle">SECURITY</text>
+
+        <!-- Edge / CDN -->
+        <rect class="node-box" x="200" y="90" width="100" height="35" rx="4"/>
+        <text class="node-title" x="250" y="112" text-anchor="middle">CloudFront</text>
+
+        <!-- Load Balancer -->
+        <path class="edge" d="M250 125 L250 155"/>
+        <rect class="node-box" x="195" y="155" width="110" height="35" rx="4"/>
+        <text class="node-title" x="250" y="177" text-anchor="middle">ALB</text>
+
+        <!-- Compute Layer -->
+        <path class="edge" d="M250 190 L130 240"/>
+        <path class="edge" d="M250 190 L370 240"/>
+        <rect class="node-box" x="70" y="240" width="120" height="45" rx="4"/>
+        <text class="node-title" x="130" y="260" text-anchor="middle">EC2</text>
+        <text class="node-label" x="130" y="275" text-anchor="middle">ECS · FARGATE</text>
+        <rect class="node-box" x="310" y="240" width="120" height="45" rx="4"/>
+        <text class="node-title" x="370" y="260" text-anchor="middle">Lambda</text>
+        <text class="node-label" x="370" y="275" text-anchor="middle">SERVERLESS</text>
+
+        <!-- Data Layer -->
+        <path class="edge" d="M130 285 L130 330"/>
+        <path class="edge" d="M370 285 L370 330"/>
+        <rect class="node-box" x="70" y="330" width="120" height="45" rx="4"/>
+        <text class="node-title" x="130" y="350" text-anchor="middle">RDS</text>
+        <text class="node-label" x="130" y="365" text-anchor="middle">DYNAMODB</text>
+        <rect class="node-box" x="310" y="330" width="120" height="45" rx="4"/>
+        <text class="node-title" x="370" y="350" text-anchor="middle">S3</text>
+        <text class="node-label" x="370" y="365" text-anchor="middle">GLACIER</text>
+
+        <!-- IAM / Security Badge -->
+        <rect class="node-box" x="205" y="200" width="90" height="30" rx="15" fill="var(--accent)" fill-opacity="0.15"/>
+        <text class="node-title" x="250" y="219" text-anchor="middle" fill="var(--accent)">IAM</text>
+
+        <!-- Animated pulses -->
+        <path class="pulse" d="M250 55 L250 90 L250 155 L130 240 L130 330"/>
+        <path class="pulse d2" d="M250 55 L250 90 L250 155 L370 240 L370 330"/>
+        <path class="pulse d3" d="M130 240 L370 240"/>
+
+        <!-- VPC Border -->
+        <rect class="node-box" x="55" y="195" width="390" height="200" rx="6" fill="none" stroke-dasharray="8 4" opacity="0.3"/>
+        <text class="node-label" x="250" y="405" text-anchor="middle" fill="var(--text-dim)">VPC · PRIVATE SUBNETS</text>
+
+        <text class="node-label" x="250" y="435" text-anchor="middle" fill="var(--text-dim)">infrastructure as code · terraform</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">01</span>
+      <h2>About</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-meta">
+        <div class="row"><span>location</span><span>Cairo, EG</span></div>
+        <div class="row"><span>focus</span><span>AWS cloud</span></div>
+        <div class="row"><span>level</span><span>junior</span></div>
+        <div class="row"><span>availability</span><span>open</span></div>
+      </div>
+      <div class="about-body">
+        <p>I'm a junior AWS cloud engineer building hands-on experience through real projects and labs — Amazon EC2, S3, IAM, VPC, Lambda, CLI, and CloudFormation. My background pairs <strong>computer science</strong> with <strong>business administration</strong>, and before cloud work I spent years as an <strong>AV specialist</strong>, which is where the troubleshooting instinct comes from.</p>
+        <p>I'm currently deepening my cloud security skills through the Digital Egypt Pioneers Initiative apprenticeship while taking on freelance AWS projects — designing environments, automating deployments, and applying security best practices from the ground up.</p>
+      </div>
+    </div>
+
+    <div class="sub-head" id="education">
+      <span class="idx">01.1</span>
+      <h3 class="sub-title">Education</h3>
+      <div class="rule"></div>
+    </div>
+
+    <div class="panel panel-solo">
+      <div class="rec">
+        <div class="rec-top">
+          <span class="deg">B.Sc. in Computer Science and Business Administration</span>
+          <span class="yr">2015 – 2019</span>
+        </div>
+        <div class="org">Cairo University</div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top">
+          <span class="deg">AWS Certified Solutions Architect — Professional</span>
+          <span class="yr">2022</span>
+        </div>
+        <div class="org">Amazon Web Services</div>
+      </div>
+    </div>
+
+    <div class="sub-head" id="skills">
+      <span class="idx">01.2</span>
+      <h3 class="sub-title">Skills</h3>
+      <div class="rule"></div>
+    </div>
+
+    <div class="panel panel-solo">
+      <div class="skill-groups">
+        <div class="skill-group">
+          <h4>Cloud platforms &amp; services</h4>
+          <div class="skill-tags"><span>AWS EC2</span><span>AWS S3</span><span>AWS IAM</span><span>AWS VPC</span><span>AWS Lambda</span><span>AWS CLI</span><span>AWS CloudFormation</span><span>AWS Security Groups</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>Cybersecurity</h4>
+          <div class="skill-tags"><span>Cloud Security Fundamentals</span><span>Vulnerability Management</span><span>Security Monitoring</span><span>Incident Response</span><span>Security Best Practices</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>Infrastructure &amp; networking</h4>
+          <div class="skill-tags"><span>Networking &amp; TCP/IP</span><span>Linux</span><span>Windows</span><span>Infrastructure Automation</span><span>High Availability</span><span>Scalability</span><span>Cost Optimization</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>Soft skills</h4>
+          <div class="skill-tags"><span>Technical Troubleshooting</span><span>Problem Solving</span><span>Analytical Thinking</span><span>Attention to Detail</span><span>Communication</span><span>Customer Support</span><span>Incident Handling</span><span>Team Leadership</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<section id="catalog">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">02</span>
+      <h2>Service catalog</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="catalog">
+      <div class="tile">
+        <svg class="glyph-wrap" viewBox="0 0 34 34"><rect class="glyph" x="4" y="4" width="26" height="26" rx="2"/><line class="glyph" x1="4" y1="13" x2="30" y2="13"/><line class="glyph" x1="4" y1="22" x2="30" y2="22"/></svg>
+        <h3>Compute</h3>
+        <p>Containerized and serverless workloads sized for actual traffic, not guesswork.</p>
+        <div class="stack"><span>EC2</span><span>ECS/Fargate</span><span>Lambda</span><span>EKS</span></div>
+      </div>
+
+      <div class="tile">
+        <svg class="glyph-wrap" viewBox="0 0 34 34"><circle class="glyph" cx="8" cy="8" r="4"/><circle class="glyph" cx="26" cy="8" r="4"/><circle class="glyph" cx="17" cy="27" r="4"/><line class="glyph" x1="11" y1="10" x2="23" y2="10"/><line class="glyph" x1="9" y1="12" x2="15" y2="23"/><line class="glyph" x1="25" y1="12" x2="19" y2="23"/></svg>
+        <h3>Networking</h3>
+        <p>VPC topologies, routing, and edge delivery that fail closed, not open.</p>
+        <div class="stack"><span>VPC</span><span>Route 53</span><span>CloudFront</span><span>Transit GW</span></div>
+      </div>
+
+      <div class="tile">
+        <svg class="glyph-wrap" viewBox="0 0 34 34"><ellipse class="glyph" cx="17" cy="8" rx="12" ry="4"/><path class="glyph" d="M5 8v18c0 2.2 5.4 4 12 4s12-1.8 12-4V8"/><path class="glyph" d="M5 17c0 2.2 5.4 4 12 4s12-1.8 12-4"/></svg>
+        <h3>Storage</h3>
+        <p>Lifecycle-managed object and block storage, tiered to what data is worth.</p>
+        <div class="stack"><span>S3</span><span>EBS</span><span>EFS</span><span>Glacier</span></div>
+      </div>
+
+      <div class="tile">
+        <svg class="glyph-wrap" viewBox="0 0 34 34"><rect class="glyph" x="6" y="4" width="22" height="8" rx="1.5"/><rect class="glyph" x="6" y="13" width="22" height="8" rx="1.5"/><rect class="glyph" x="6" y="22" width="22" height="8" rx="1.5"/></svg>
+        <h3>Database</h3>
+        <p>Relational and key-value stores, replicated and backed up before it matters.</p>
+        <div class="stack"><span>RDS</span><span>DynamoDB</span><span>Aurora</span><span>ElastiCache</span></div>
+      </div>
+
+      <div class="tile">
+        <svg class="glyph-wrap" viewBox="0 0 34 34"><path class="glyph" d="M17 3v6M17 25v6M3 17h6M25 17h6M7 7l4.2 4.2M22.8 22.8L27 27M27 7l-4.2 4.2M11.2 22.8L7 27" /><circle class="glyph" cx="17" cy="17" r="7"/></svg>
+        <h3>Infra as code</h3>
+        <p>Every resource in version control, reviewed like application code — because it is.</p>
+        <div class="stack"><span>Terraform</span><span>CDK</span><span>CloudFormation</span></div>
+      </div>
+
+      <div class="tile">
+        <svg class="glyph-wrap" viewBox="0 0 34 34"><polyline class="glyph" points="3,20 10,20 13,8 18,28 21,17 24,20 31,20"/></svg>
+        <h3>Observability</h3>
+        <p>Dashboards and alerts tuned so a page means something is actually wrong.</p>
+        <div class="stack"><span>CloudWatch</span><span>Datadog</span><span>OpenTelemetry</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deployments">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">03</span>
+      <h2>Deployments</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="deployments">
+      <div class="deploy">
+        <div class="deploy-meta">
+          <div class="row"><span>region</span><b>us-east-1</b></div>
+          <div class="row"><span>type</span><b>multi-tenant SaaS</b></div>
+          <div class="row"><span>status</span><span class="status-pill status-live">● live</span></div>
+        </div>
+        <div class="deploy-body">
+          <h3>Zero-downtime migration off a monolith EC2 fleet</h3>
+          <p>Replaced a single-region, single-AZ deployment with an autoscaled ECS/Fargate architecture behind a blue-green pipeline, cutting deploy time from 40 minutes to under 4 with zero customer-facing downtime.</p>
+          <div class="tags"><span>ECS</span><span>Terraform</span><span>CodeDeploy</span><span>RDS Multi-AZ</span></div>
+          <a class="deploy-link" href="#">read the write-up →</a>
+        </div>
+      </div>
+
+      <div class="deploy">
+        <div class="deploy-meta">
+          <div class="row"><span>region</span><b>multi-region</b></div>
+          <div class="row"><span>type</span><b>cost optimization</b></div>
+          <div class="row"><span>status</span><span class="status-pill status-live">● live</span></div>
+        </div>
+        <div class="deploy-body">
+          <h3>Cut cloud spend 38% without touching latency budgets</h3>
+          <p>Rightsized compute reservations, moved cold data to Glacier Instant Retrieval, and replaced a handful of always-on Lambdas with EventBridge-scheduled batch jobs.</p>
+          <div class="tags"><span>Savings Plans</span><span>S3 Lifecycle</span><span>EventBridge</span></div>
+          <a class="deploy-link" href="#">read the write-up →</a>
+        </div>
+      </div>
+
+      <div class="deploy">
+        <div class="deploy-meta">
+          <div class="row"><span>region</span><b>eu-west-1</b></div>
+          <div class="row"><span>type</span><b>compliance</b></div>
+          <div class="row"><span>status</span><span class="status-pill status-archived">○ archived</span></div>
+        </div>
+        <div class="deploy-body">
+          <h3>SOC 2 Type II infrastructure hardening</h3>
+          <p>Built the audit trail from the ground up: centralized CloudTrail logging, least-privilege IAM boundaries, and automated drift detection that fails a build before it fails an audit.</p>
+          <div class="tags"><span>IAM</span><span>CloudTrail</span><span>Config Rules</span></div>
+          <a class="deploy-link" href="#">read the write-up →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="changelog">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">04</span>
+      <h2>Changelog</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="changelog">
+      <div class="entry">
+        <span class="when">2023 — present</span>
+        <span class="ver">v4.0.0</span>
+        <h3>Senior Cloud Infrastructure Engineer</h3>
+        <p class="org">Northwind Logistics</p>
+        <ul>
+          <li>Own the AWS landing zone for 6 product teams across 3 accounts</li>
+          <li>Led the migration from CloudFormation to Terraform across all environments</li>
+          <li>Cut mean-time-to-recovery from 52 minutes to 9 with automated rollback</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <span class="when">2021 — 2023</span>
+        <span class="ver">v3.0.0</span>
+        <h3>Cloud Engineer</h3>
+        <p class="org">Fernbank Health</p>
+        <ul>
+          <li>Designed the HIPAA-eligible VPC architecture used by every new service</li>
+          <li>Built the CI/CD pipeline that took releases from weekly to on-demand</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <span class="when">2019 — 2021</span>
+        <span class="ver">v2.0.0</span>
+        <h3>DevOps Engineer</h3>
+        <p class="org">Alder & Finch</p>
+        <ul>
+          <li>Containerized the core platform and moved it from bare-metal to ECS</li>
+          <li>Introduced infrastructure code review as a required PR gate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="connect">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">05</span>
+      <h2>Connect</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="terminal">
+      <div class="term-bar"><span></span><span></span><span></span></div>
+      <div class="term-body">
+        <div class="line"><span class="prompt">$</span> whoami</div>
+        <div class="line">ahmed el ganzoury — cloud infrastructure engineer, remote / EST</div>
+        <div class="line"><span class="prompt">$</span> contact --email</div>
+        <div class="line"><a href="mailto:a.alganzoury@gmail.com">a.alganzoury@gmail.com</a></div>
+        <div class="line"><span class="prompt">$</span> contact --links</div>
+        <div class="line"><a href="#">github.com/aelganzoury</a> · <a href="https://www.linkedin.com/in/ahmed-el-ganzoury-47a233427/" target="_blank" rel="noopener">linkedin.com/in/ahmed-el-ganzoury</a></div>
+        <div class="line"><span class="prompt">$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+<footer>
+  built with terraform, coffee, and a healthy fear of 3am pages — © 2026 ahmed el ganzoury
+</footer>
+
+</body>
+</html>
