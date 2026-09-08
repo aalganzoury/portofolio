@@ -31,15 +31,26 @@
   html{scroll-behavior:smooth;}
 
   body{
-    background:
-      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
-      var(--bg);
-    background-attachment:fixed;
+    background:var(--bg);
     color:var(--text);
     font-family:var(--body);
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+  #binary-rain{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
+  }
+  header.nav, section, footer{
+    position:relative;
+    z-index:1;
   }
 
   a{color:inherit;}
@@ -453,14 +464,10 @@
       <nav class="links">
         <a href="#cover">COVER</a>
         <a href="#about">ABOUT</a>
+        <a href="#services">SERVICES</a>
+        <a href="#projects">PROJECTS</a>
         <a href="#skills">SKILLS</a>
         <a href="#education">EDUCATION</a>
-        <!--
-        <a href="#catalog">services</a>
-        <a href="#deployments">deployments</a>
-        <a href="#changelog">changelog</a>
-        <a href="#connect">connect</a>
-        -->
       </nav>
       <a href="#about" class="brand-mark" aria-label="El Ganzoury — home">
         <span class="wordmark">El<em>Ganzoury</em></span>
@@ -489,7 +496,7 @@
       </div>
       <div class="cta-row">
         <a class="btn btn-primary" href="#about">View Profile →</a>
-        <a class="btn btn-ghost" href="ahmed-el-ganzoury-resume.pdf" download>Download CV</a>
+        <a class="btn btn-ghost" href="#" id="cv-download">Download CV</a>
       </div>
     </div>
 
@@ -639,12 +646,11 @@
   </div>
 </section>
 
-<!--
-<section id="catalog">
+<section id="services">
   <div class="wrap">
     <div class="section-head">
       <span class="idx">02</span>
-      <h2>Service catalog</h2>
+      <h2>Services</h2>
       <div class="rule"></div>
     </div>
 
@@ -694,10 +700,29 @@
   </div>
 </section>
 
-<section id="deployments">
+<section id="projects">
   <div class="wrap">
     <div class="section-head">
       <span class="idx">03</span>
+      <h2>Projects</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="deployments">
+      <div class="deploy" style="justify-content:center; text-align:center; padding:48px 32px;">
+        <div class="deploy-body">
+          <p style="color:var(--text-dim); font-family:var(--mono); font-size:13px;">Projects coming soon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<section id="deployments">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">04</span>
       <h2>Deployments</h2>
       <div class="rule"></div>
     </div>
@@ -751,7 +776,7 @@
 <section id="changelog">
   <div class="wrap">
     <div class="section-head">
-      <span class="idx">04</span>
+      <span class="idx">05</span>
       <h2>Changelog</h2>
       <div class="rule"></div>
     </div>
@@ -797,7 +822,7 @@
 <section id="connect">
   <div class="wrap">
     <div class="section-head">
-      <span class="idx">05</span>
+      <span class="idx">06</span>
       <h2>Connect</h2>
       <div class="rule"></div>
     </div>
@@ -821,6 +846,120 @@
 <footer>
   built with terraform, coffee, and a healthy fear of 3am pages — © 2026 ahmed el ganzoury
 </footer>
+
+<canvas id="binary-rain"></canvas>
+
+<script>
+(function(){
+  const canvas=document.getElementById('binary-rain');
+  const ctx=canvas.getContext('2d');
+  let columns=[];
+  let w,h,cols,colW;
+  const fontSize=16;
+  const accentColor={r:76,g:232,b:206};
+  const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=window.innerHeight;
+    colW=fontSize*2;
+    cols=Math.ceil(w/colW);
+    const count=prefersReduced?Math.floor(cols*0.12):Math.floor(cols*0.3);
+    while(columns.length<count){
+      columns.push({
+        x:Math.floor(Math.random()*cols)*colW,
+        y:Math.random()*h*2,
+        speed:0.4+Math.random()*0.6,
+        chars:[],
+        len:10+Math.floor(Math.random()*14),
+        baseAlpha:0.25+Math.random()*0.45
+      });
+    }
+    while(columns.length>count)columns.pop();
+  }
+
+  function initColumns(){
+    columns=[];
+    resize();
+    columns.forEach(col=>{
+      col.chars=[];
+      for(let i=0;i<col.len;i++){
+        col.chars.push(Math.random()>0.5?'1':'0');
+      }
+    });
+  }
+
+  function draw(){
+    ctx.fillStyle='rgba(10,17,32,0.18)';
+    ctx.fillRect(0,0,w,h);
+    ctx.font='bold '+fontSize+'px "IBM Plex Mono",monospace';
+    columns.forEach(col=>{
+      for(let i=0;i<col.chars.length;i++){
+        const yPos=col.y-i*fontSize;
+        if(yPos<-fontSize*2||yPos>h+fontSize)continue;
+        const distFromTop=yPos/h;
+        const fade=Math.max(0.15,1-distFromTop*0.6);
+        const isHead=i===0;
+        let alpha=col.baseAlpha*fade;
+        if(isHead)alpha=Math.min(1,alpha*2.8);
+        else if(i<3)alpha=Math.min(0.9,alpha*1.6);
+        const r=accentColor.r;
+        const g=accentColor.g;
+        const b=accentColor.b;
+        ctx.shadowColor='rgba('+r+','+g+','+b+','+(isHead?0.6:0.25)+')';
+        ctx.shadowBlur=isHead?12:4;
+        ctx.fillStyle='rgba('+r+','+g+','+b+','+alpha+')';
+        ctx.fillText(col.chars[i],col.x,yPos);
+      }
+      ctx.shadowBlur=0;
+      ctx.shadowColor='transparent';
+      col.y+=col.speed;
+      if(col.y-col.len*fontSize>h){
+        col.y=-fontSize*2;
+        col.speed=0.4+Math.random()*0.6;
+        col.baseAlpha=0.25+Math.random()*0.45;
+        for(let i=0;i<col.len;i++){
+          col.chars[i]=Math.random()>0.5?'1':'0';
+        }
+      }
+      if(Math.random()<0.008){
+        const idx=Math.floor(Math.random()*col.len);
+        col.chars[idx]=Math.random()>0.5?'1':'0';
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize',resize);
+  initColumns();
+  if(!prefersReduced){
+    draw();
+  }else{
+    ctx.font='bold '+fontSize+'px "IBM Plex Mono",monospace';
+    columns.forEach(col=>{
+      for(let i=0;i<col.chars.length;i++){
+        const yPos=col.y-i*fontSize;
+        if(yPos<-fontSize*2||yPos>h+fontSize)continue;
+        ctx.fillStyle='rgba('+accentColor.r+','+accentColor.g+','+accentColor.b+',0.2)';
+        ctx.fillText(col.chars[i],col.x,yPos);
+      }
+    });
+  }
+})();
+</script>
+
+<script>
+document.getElementById('cv-download').addEventListener('click', function(e) {
+  e.preventDefault();
+  var link = document.createElement('a');
+  link.href = 'Ahmed-El-Ganzoury-Resume.pdf';
+  link.download = 'Ahmed-El-Ganzoury-Resume.pdf';
+  link.target = '_blank';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+</script>
 
 </body>
 </html>
