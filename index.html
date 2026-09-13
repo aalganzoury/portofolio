@@ -553,6 +553,48 @@
     .modal-body{padding:24px 20px;}
     .modal-img{height:200px;}
   }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .whatsapp-float{
+    position:fixed; bottom:24px; right:24px; z-index:90;
+    width:60px; height:60px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 16px rgba(37,211,102,0.35);
+    transition:transform .25s ease, box-shadow .25s ease;
+    text-decoration:none;
+  }
+  .whatsapp-float:hover{
+    transform:scale(1.1);
+    box-shadow:0 6px 24px rgba(37,211,102,0.5);
+  }
+  .whatsapp-float svg{width:30px; height:30px; fill:#fff;}
+  .whatsapp-tooltip{
+    position:absolute; bottom:calc(100% + 12px); right:0;
+    background:var(--surface); border:1px solid var(--border);
+    color:var(--text); font-family:var(--body); font-size:13px;
+    padding:10px 16px; border-radius:6px; white-space:nowrap;
+    direction:ltr; text-align:left;
+    opacity:0; transform:translateY(6px);
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  }
+  .whatsapp-tooltip::after{
+    content:''; position:absolute; top:100%; right:20px;
+    border:6px solid transparent; border-top-color:var(--border);
+  }
+  .whatsapp-float:hover .whatsapp-tooltip{
+    opacity:1; transform:translateY(0);
+  }
+  @media (max-width:860px){
+    .whatsapp-float{width:54px; height:54px; bottom:20px; right:20px;}
+    .whatsapp-float svg{width:26px; height:26px;}
+  }
+  @media (max-width:520px){
+    .whatsapp-float{width:50px; height:50px; bottom:16px; right:16px;}
+    .whatsapp-float svg{width:24px; height:24px;}
+    .whatsapp-tooltip{display:none;}
+  }
 </style>
 </head>
 <body>
@@ -1125,6 +1167,10 @@ document.addEventListener('keydown', function(e) {
   }
 });
 </script>
+
+<a href="https://wa.me/message/KE25CGFUQFIWO1" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with me on WhatsApp">
+  <span class="whatsapp-tooltip">Get the full project Diagram</span>
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.054 9.374L1.054 31.25l6.118-1.97C9.726 30.966 12.768 32 16.004 32 24.83 32 32 24.822 32 16S24.83 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.168 2.27-.84.18-1.936.322-5.636-1.21-4.736-1.966-7.776-6.79-8.008-7.104-.226-.314-1.86-2.474-1.86-4.72s1.18-3.35 1.6-3.814c.39-.464.92-.612 1.226-.612.15 0 .28.008.4.014.
 
 </body>
 </html>
