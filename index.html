@@ -554,46 +554,44 @@
     .modal-img{height:200px;}
   }
 
-  /* ---------- WHATSAPP FLOAT ---------- */
-  .whatsapp-float{
-    position:fixed; bottom:24px; right:24px; z-index:90;
-    width:60px; height:60px; border-radius:50%;
-    background:#25D366; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 4px 16px rgba(37,211,102,0.35);
-    transition:transform .25s ease, box-shadow .25s ease;
-    text-decoration:none;
+  /* ---------- CARD CONTACT SECTION ---------- */
+  .card-contact{
+    border-top:1px solid var(--border);
+    padding:24px 26px;
   }
-  .whatsapp-float:hover{
-    transform:scale(1.1);
-    box-shadow:0 6px 24px rgba(37,211,102,0.5);
+  .card-contact-inner{
+    display:flex; gap:24px; align-items:center;
   }
-  .whatsapp-float svg{width:30px; height:30px; fill:#fff;}
-  .whatsapp-tooltip{
-    position:absolute; bottom:calc(100% + 12px); right:0;
-    background:var(--surface); border:1px solid var(--border);
-    color:var(--text); font-family:var(--body); font-size:13px;
-    padding:10px 16px; border-radius:6px; white-space:nowrap;
-    direction:ltr; text-align:left;
-    opacity:0; transform:translateY(6px);
-    pointer-events:none;
-    transition:opacity .25s ease, transform .25s ease;
-    box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  .card-contact-illust{
+    flex-shrink:0; width:100px; height:100px;
   }
-  .whatsapp-tooltip::after{
-    content:''; position:absolute; top:100%; right:20px;
-    border:6px solid transparent; border-top-color:var(--border);
+  .card-contact-illust svg{width:100%; height:100%;}
+  .card-contact-text{flex:1; min-width:0;}
+  .card-contact-text h4{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    color:var(--text); margin-bottom:6px;
   }
-  .whatsapp-float:hover .whatsapp-tooltip{
-    opacity:1; transform:translateY(0);
+  .card-contact-text p{
+    font-size:13px; color:var(--text-muted); margin-bottom:14px;
+    line-height:1.5;
   }
-  @media (max-width:860px){
-    .whatsapp-float{width:54px; height:54px; bottom:20px; right:20px;}
-    .whatsapp-float svg{width:26px; height:26px;}
+  .card-wa-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#25D366; color:#fff;
+    font-family:var(--mono); font-size:12px; font-weight:500;
+    padding:10px 20px; border-radius:4px; text-decoration:none;
+    transition:transform .2s ease, box-shadow .2s ease;
+    box-shadow:0 2px 8px rgba(37,211,102,0.25);
   }
+  .card-wa-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 16px rgba(37,211,102,0.4);
+  }
+  .card-wa-btn svg{width:16px; height:16px; fill:#fff; flex-shrink:0;}
   @media (max-width:520px){
-    .whatsapp-float{width:50px; height:50px; bottom:16px; right:16px;}
-    .whatsapp-float svg{width:24px; height:24px;}
-    .whatsapp-tooltip{display:none;}
+    .card-contact-inner{flex-direction:column; text-align:center;}
+    .card-contact-illust{width:80px; height:80px;}
+    .card-wa-btn{width:100%; justify-content:center;}
   }
 </style>
 </head>
@@ -864,6 +862,35 @@
             <span>Recording</span>
           </div>
           <span class="project-link">view details →</span>
+        </div>
+
+        <div class="card-contact" onclick="event.stopPropagation()">
+          <div class="card-contact-inner">
+            <div class="card-contact-illust">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="18" width="44" height="34" rx="6" stroke="var(--accent)" stroke-width="1.5" fill="rgba(76,232,206,0.06)"/>
+                <rect x="36" y="48" width="12" height="6" rx="1" fill="var(--accent)" opacity="0.3"/>
+                <rect x="56" y="54" width="28" height="22" rx="5" stroke="#25D366" stroke-width="1.5" fill="rgba(37,211,102,0.06)"/>
+                <circle cx="70" cy="61" r="3" fill="#25D366" opacity="0.5"/>
+                <circle cx="70" cy="68" r="3" fill="#25D366" opacity="0.35"/>
+                <circle cx="70" cy="75" r="3" fill="#25D366" opacity="0.2"/>
+                <path d="M30 30h20M30 36h14" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+                <path d="M62 60h16M62 66h10" stroke="#25D366" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+                <path d="M50 40 L60 48" stroke="var(--text-dim)" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+                <circle cx="50" cy="90" r="2" fill="var(--accent)" opacity="0.15"/>
+                <circle cx="80" cy="90" r="2" fill="#25D366" opacity="0.15"/>
+                <circle cx="10" cy="90" r="2" fill="var(--accent)" opacity="0.1"/>
+              </svg>
+            </div>
+            <div class="card-contact-text">
+              <h4>Let's Talk</h4>
+              <p>Have a project in mind or need the complete source code?</p>
+              <a href="https://wa.me/message/KE25CGFUQFIWO1" class="card-wa-btn" target="_blank" rel="noopener noreferrer" aria-label="Chat with me on WhatsApp">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.054 9.374L1.054 31.25l6.118-1.97C9.726 30.966 12.768 32 16.004 32 24.83 32 32 24.822 32 16S24.83 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.168 2.27-.84.18-1.936.322-5.636-1.21-4.736-1.966-7.776-6.79-8.008-7.104-.226-.314-1.86-2.474-1.86-4.72s1.18-3.35 1.6-3.814c.39-.464.92-.612 1.226-.612.15 0 .28.008.4.014.42.018.63.042.906.714.35.836 1.196 2.912 1.298 3.126.104.214.206.484.062.756-.124.294-.28.48-.522.746-.24.266-.468.47-.71.754-.214.246-.448.51-.19.956.256.444 1.136 1.874 2.436 3.036 1.676 1.496 3.046 1.96 3.52 2.174.374.168.794.126 1.052-.226.328-.448.74-1.184 1.154-1.906.294-.512.664-.576 1.114-.39.456.18 2.884 1.36 3.38 1.604.494.246.824.368.95.57.124.204.124 1.176-.266 2.272z"/></svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1167,10 +1194,6 @@ document.addEventListener('keydown', function(e) {
   }
 });
 </script>
-
-<a href="https://wa.me/message/KE25CGFUQFIWO1" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with me on WhatsApp">
-  <span class="whatsapp-tooltip">Get the full project Diagram</span>
-  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.054 9.374L1.054 31.25l6.118-1.97C9.726 30.966 12.768 32 16.004 32 24.83 32 32 24.822 32 16S24.83 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.168 2.27-.84.18-1.936.322-5.636-1.21-4.736-1.966-7.776-6.79-8.008-7.104-.226-.314-1.86-2.474-1.86-4.72s1.18-3.35 1.6-3.814c.39-.464.92-.612 1.226-.612.15 0 .28.008.4.014.
 
 </body>
 </html>
