@@ -848,7 +848,7 @@
       <div class="rule"></div>
     </div>
 
-    <div class="catalog" style="grid-template-columns:repeat(1,1fr); max-width:560px;">
+    <div class="catalog" style="grid-template-columns:repeat(2,1fr); max-width:900px; gap:32px;">
       <div class="project-card" onclick="openModal('av-project')">
         <img class="project-thumb" src="larg-scal-coverpage.png" alt="Large-Scale AV Integration System">
         <div class="project-info">
@@ -864,6 +864,50 @@
           <span class="project-link">view details →</span>
         </div>
 
+        <div class="card-contact" onclick="event.stopPropagation()">
+          <div class="card-contact-inner">
+            <div class="card-contact-illust">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="18" width="44" height="34" rx="6" stroke="var(--accent)" stroke-width="1.5" fill="rgba(76,232,206,0.06)"/>
+                <rect x="36" y="48" width="12" height="6" rx="1" fill="var(--accent)" opacity="0.3"/>
+                <rect x="56" y="54" width="28" height="22" rx="5" stroke="#25D366" stroke-width="1.5" fill="rgba(37,211,102,0.06)"/>
+                <circle cx="70" cy="61" r="3" fill="#25D366" opacity="0.5"/>
+                <circle cx="70" cy="68" r="3" fill="#25D366" opacity="0.35"/>
+                <circle cx="70" cy="75" r="3" fill="#25D366" opacity="0.2"/>
+                <path d="M30 30h20M30 36h14" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+                <path d="M62 60h16M62 66h10" stroke="#25D366" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+                <path d="M50 40 L60 48" stroke="var(--text-dim)" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+                <circle cx="50" cy="90" r="2" fill="var(--accent)" opacity="0.15"/>
+                <circle cx="80" cy="90" r="2" fill="#25D366" opacity="0.15"/>
+                <circle cx="10" cy="90" r="2" fill="var(--accent)" opacity="0.1"/>
+              </svg>
+            </div>
+            <div class="card-contact-text">
+              <h4>Let's Talk</h4>
+              <p>Have a project in mind or need the complete source code?</p>
+              <a href="https://wa.me/message/KE25CGFUQFIWO1" class="card-wa-btn" target="_blank" rel="noopener noreferrer" aria-label="Chat with me on WhatsApp">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.054 9.374L1.054 31.25l6.118-1.97C9.726 30.966 12.768 32 16.004 32 24.83 32 32 24.822 32 16S24.83 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.168 2.27-.84.18-1.936.322-5.636-1.21-4.736-1.966-7.776-6.79-8.008-7.104-.226-.314-1.86-2.474-1.86-4.72s1.18-3.35 1.6-3.814c.39-.464.92-.612 1.226-.612.15 0 .28.008.4.014.42.018.63.042.906.714.35.836 1.196 2.912 1.298 3.126.104.214.206.484.062.756-.124.294-.28.48-.522.746-.24.266-.468.47-.71.754-.214.246-.448.51-.19.956.256.444 1.136 1.874 2.436 3.036 1.676 1.496 3.046 1.96 3.52 2.174.374.168.794.126 1.052-.226.328-.448.74-1.184 1.154-1.906.294-.512.664-.576 1.114-.39.456.18 2.884 1.36 3.38 1.604.494.246.824.368.95.57.124.204.124 1.176-.266 2.272z"/></svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="openModal('aws-project')">
+        <img class="project-thumb" src="AWS%20Single%20-%20AZ%20Public%20Web%20Infrastructure.png" alt="AWS Single-AZ Public Web Infrastructure">
+        <div class="project-info" style="background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%); min-height: 200px; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="color: #60a5fa;">AWS Cloud Infrastructure Project</h3>
+          <p>Highly available web application architecture with ALB, Auto Scaling, VPC, NAT Gateway, and Multi-AZ networking across two Availability Zones.</p>
+          <div class="project-tags">
+            <span>VPC</span>
+            <span>ALB</span>
+            <span>Auto Scaling</span>
+            <span>NAT Gateway</span>
+            <span>Multi-AZ</span>
+          </div>
+          <span class="project-link">view documentation →</span>
+        </div>
         <div class="card-contact" onclick="event.stopPropagation()">
           <div class="card-contact-inner">
             <div class="card-contact-illust">
@@ -926,6 +970,59 @@
           <li>Signal Flow Architecture — end-to-end signal routing</li>
           <li>System Control and Management — unified control interface</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="aws-project" onclick="closeModal(event, 'aws-project')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="document.getElementById('aws-project').classList.remove('active')">&times;</button>
+    <div style="background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%); padding: 60px 40px; text-align: center;">
+      <h2 style="color: #60a5fa; font-size: 1.8rem; margin-bottom: 10px;">AWS Cloud Infrastructure Project</h2>
+      <p style="color: #94a3b8; font-size: 1rem;">Highly Available Web Application Architecture</p>
+    </div>
+    <div class="modal-body">
+      <h2>Project Overview</h2>
+      <p>A production-grade, highly available web application infrastructure on Amazon Web Services (AWS). This architecture demonstrates Multi-AZ deployment with automatic failover, horizontal scaling, and robust security implementation.</p>
+      <p>The infrastructure follows AWS Well-Architected Framework principles and is suitable for enterprise-grade web applications requiring high availability, scalability, and security.</p>
+
+      <div class="modal-tags">
+        <span>VPC</span>
+        <span>ALB</span>
+        <span>Auto Scaling</span>
+        <span>NAT Gateway</span>
+        <span>Multi-AZ</span>
+        <span>Security Groups</span>
+      </div>
+
+      <div class="modal-section">
+        <h4>Architecture Components</h4>
+        <ul>
+          <li>VPC with CIDR 10.0.0.0/16 — Network isolation</li>
+          <li>Public Subnets (10.0.1.0/24, 10.0.3.0/24) — ALB, NAT Gateway</li>
+          <li>Private Subnets (10.0.2.0/24, 10.0.4.0/24) — EC2 Instances</li>
+          <li>Application Load Balancer — Layer 7 load balancing</li>
+          <li>Auto Scaling Group — Automatic scaling across 2 AZs</li>
+          <li>NAT Gateway — Outbound internet for private instances</li>
+          <li>Security Groups — Stateful firewall rules</li>
+          <li>Route Tables — Traffic routing configuration</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>Key Features</h4>
+        <ul>
+          <li>High Availability — 99.99% uptime SLA</li>
+          <li>Fault Tolerance — No single point of failure</li>
+          <li>Auto Scaling — 2-4 instances based on demand</li>
+          <li>Security — Public/private subnet separation</li>
+          <li>Multi-AZ — Redundancy across availability zones</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <a href="aws-infrastructure-viewer.html" class="btn btn-primary" style="display: inline-flex;">View Full Documentation →</a>
       </div>
     </div>
   </div>
