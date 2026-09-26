@@ -212,6 +212,69 @@
   }
   .btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-2px);}
 
+  /* ---------- CTA ---------- */
+  .contact-cta{
+    padding:80px 0 96px;
+  }
+  .contact-cta .cta-panel{
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:48px 40px;
+    text-align:center;
+  }
+  .contact-cta .cta-title{
+    font-family:var(--display); font-size:clamp(1.6rem, 3vw, 2.2rem);
+    font-weight:600; color:var(--text); margin-bottom:12px;
+  }
+  .contact-cta .cta-sub{
+    font-size:15px; color:var(--text-muted); max-width:44ch; margin:0 auto 32px;
+  }
+  .contact-cta .cta-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:12px;
+  }
+  .contact-cta .cta-item{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:18px 16px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    color:var(--text);
+    text-decoration:none;
+    font-family:var(--mono); font-size:13px;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  .contact-cta .cta-item:hover{
+    transform:translateY(-2px);
+    border-color:var(--accent);
+    box-shadow:0 4px 16px rgba(76,232,206,0.08);
+    color:var(--accent);
+  }
+  .contact-cta .cta-item svg{width:16px; height:16px; fill:var(--accent); flex-shrink:0;}
+  .contact-cta .phone-item{justify-content:center; gap:26px; padding-left:8px;}
+  .contact-cta .phone-link{
+    display:inline-flex; align-items:center; gap:10px;
+    color:inherit; text-decoration:none;
+  }
+  .contact-cta .phone-link:hover{color:var(--accent);}
+  .contact-cta .wa-mini{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%;
+    background:#25D366; flex-shrink:0;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .contact-cta .wa-mini svg{
+    width:14px; height:14px; fill:#fff; flex-shrink:0;
+  }
+  .contact-cta .wa-mini:hover{
+    transform:translateY(-2px) scale(1.08);
+    box-shadow:0 4px 12px rgba(37,211,102,0.45);
+  }
+  @media (max-width:700px){
+    .contact-cta .cta-grid{grid-template-columns:1fr;}
+    .contact-cta .cta-panel{padding:36px 24px;}
+  }
+
   /* topology diagram */
   .topo{width:100%; height:auto; overflow:visible;}
   .topo .node-box{
@@ -1152,6 +1215,41 @@
   </div>
 </section>
 -->
+
+<section id="contact" class="contact-cta">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">04</span>
+      <h2>Let's Build Something</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="cta-panel">
+      <h3 class="cta-title">Have a cloud infrastructure or AV project in mind?</h3>
+      <p class="cta-sub">Have a project or a business challenge? Let's connect to discuss how I can help you achieve your goals. Open for freelance work and strategic collaborations.</p>
+      <div class="cta-grid">
+        <a class="cta-item" href="mailto:a.alganzoury@gmail.com" aria-label="Email me">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          a.alganzoury@gmail.com
+        </a>
+        <div class="cta-item phone-item">
+          <a class="phone-link" href="tel:+201002459204" aria-label="Call me">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.01l-2.2 2.21z"/></svg>
+            +20 100 245 9204
+          </a>
+          <a class="wa-mini" href="https://wa.me/201002459204" target="_blank" rel="noopener noreferrer" aria-label="Chat with me on WhatsApp" title="WhatsApp">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.054 9.374L1.054 31.25l6.118-1.97C9.726 30.966 12.768 32 16.004 32 24.83 32 32 24.822 32 16S24.83 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.168 2.27-.84.18-1.936.322-5.636-1.21-4.736-1.966-7.776-6.79-8.008-7.104-.226-.314-1.86-2.474-1.86-4.72s1.18-3.35 1.6-3.814c.39-.464.92-.612 1.226-.612.15 0 .28.008.4.014.42.018.63.042.906.714.35.836 1.196 2.912 1.298 3.126.104.214.206.484.062.756-.124.294-.28.48-.522.746-.24.266-.468.47-.71.754-.214.246-.448.51-.19.956.256.444 1.136 1.874 2.436 3.036 1.676 1.496 3.046 1.96 3.52 2.174.374.168.794.126 1.052-.226.328-.448.74-1.184 1.154-1.906.294-.512.664-.576 1.114-.39.456.18 2.884 1.36 3.38 1.604.494.246.824.368.95.57.124.204.124 1.176-.266 2.272z"/></svg>
+          </a>
+        </div>
+        
+        <a class="cta-item" href="https://www.linkedin.com/in/ahmed-el-ganzoury-47a233427/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V9h4v1.5A6 6 0 0 1 16 8zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
   built with terraform, coffee, and a healthy fear of 3am pages — © 2026 ahmed el ganzoury
